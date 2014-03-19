@@ -1,0 +1,3 @@
+CREATE DATABASE worder;
+USE worder;
+CREATE TABLE 'words' ('words_id' INT(5) NOT NULL AUTO_INCREMENT, 'word' VARCHAR(20) NOT NULL UNIQUE, 'lang')

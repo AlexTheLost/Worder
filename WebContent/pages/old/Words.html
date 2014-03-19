@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>TestPage</title>
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<style type="text/css">
+.CRUD {
+	padding: 10px;
+	margin: 10px;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <ul class="nav nav-tabs">
+            <li>
+                <a href="index.jsp">Home</a>
+            </li>
+            <li>
+                <a href="Tests.html">Tests</a>
+            </li>
+            <li class="active">
+                <a href="Words.html">Words</a>
+            </li>
+        </ul>
+        <br />
+        <div>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#add" data-toggle="tab">Add Word</a>
+                </li>
+                <li>
+                    <a href="#update" data-toggle="tab">Update Word</a>
+                </li>
+                <li>
+                    <a href="#delete" data-toggle="tab">Delete Word</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="add">
+                    <div class="CRUD">
+                        <!-- ADD -->
+                        <form action="" method="post">
+                            <input type="text" class="" placeholder="En word">
+                            <br />
+                            <input type="text" class="" placeholder="Complexity">
+                            <br />
+                            <input type="text" class="" placeholder="Translate via ';'">
+                            <br />
+                            <input type="submit" class="" placeholder="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane" id="update">
+                    <div class="CRUD">
+                        <!-- UPDATE -->
+                        <form action="" method="post">
+                            <input type="text" class="" placeholder="En word">
+                            <br />
+                            <input type="text" class="" placeholder="Complexity">
+                            <br />
+                            <input type="text" class="" placeholder="Translate via ';'">
+                            <br />
+                            <input type="submit" class="" placeholder="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane" id="delete">
+                    <div class="CRUD">
+                        <!-- DELETE -->
+                        <form action="" method="post">
+                            <input type="text" class="" placeholder="En word">
+                            <input type="submit" class="" placeholder="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Dictionary</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>EN Word</th>
+                        <th>Complexity</th>
+                        <th>Ru Translate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Word_1</td>
+                        <td>easily</td>
+                        <td>слово_1.0; слово_1.1</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Word_2</td>
+                        <td>medium</td>
+                        <td>слово_2.0; слово_2.1</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Word_3</td>
+                        <td>hard</td>
+                        <td>слово_3.0; слово_3.1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
