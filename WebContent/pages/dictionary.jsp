@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="domain.word.Word, dao.word.WordDAO, java.util.List;"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,62 +34,31 @@
 
         <br />
 
-        <div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="add">
+                <div class="CRUD">
+                    <!-- ADD -->
+                    <form action="<%=request.getContextPath()%>/add_word" method="post">
+                        <input type="text" name="word" placeholder="Word">
+                        <input type="submit" class="" value="Add">
+                        <br />
+                        Complexity:&nbsp;
+                        <input type="radio" name="complexity" value="low">
+                        Low&nbsp;
+                        <input type="radio" name="complexity" value="medium">
+                        Medium&nbsp;
+                        <input type="radio" name="complexity" value="hard" checked>
+                        Hard&nbsp;
 
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#add" data-toggle="tab">Add Word</a>
-                </li>
-                <li>
-                    <a href="#update" data-toggle="tab">Update Word</a>
-                </li>
-                <li>
-                    <a href="#delete" data-toggle="tab">Delete Word</a>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="add">
-                    <div class="CRUD">
-                        <!-- ADD -->
-                        <form action="" method="post">
-                            <input type="text" class="" placeholder="En word">
-                            <br />
-                            <input type="text" class="" placeholder="Complexity">
-                            <br />
-                            <input type="text" class="" placeholder="Translate via ';'">
-                            <br />
-                            <input type="submit" class="" placeholder="Submit">
-                        </form>
-                    </div>
-                </div>
-                <div class="tab-pane" id="update">
-                    <div class="CRUD">
-                        <!-- UPDATE -->
-                        <form action="" method="post">
-                            <input type="text" class="" placeholder="En word">
-                            <br />
-                            <input type="text" class="" placeholder="Complexity">
-                            <br />
-                            <input type="text" class="" placeholder="Translate via ';'">
-                            <br />
-                            <input type="submit" class="" placeholder="Submit">
-                        </form>
-                    </div>
-                </div>
-                <div class="tab-pane" id="delete">
-                    <div class="CRUD">
-                        <!-- DELETE -->
-                        <form action="" method="post">
-                            <input type="text" class="" placeholder="En word">
-                            <input type="submit" class="" placeholder="Submit">
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
-
         </div>
 
+        <%
+            WordDAO wordDAO = new WordDAO();
+            List<Word> words = wordDAO.readAll();
+        %>
         <div class="panel panel-default">
             <div class="panel-heading">Dictionary</div>
             <table class="table">
@@ -100,26 +70,46 @@
                         <th>Ru Translate</th>
                     </tr>
                 </thead>
+                <%
+                    int i = 0;
+                    for (Word w : words) {
+                %>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Word_1</td>
-                        <td>easily</td>
-                        <td>слово_1.0; слово_1.1</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Word_2</td>
-                        <td>medium</td>
-                        <td>слово_2.0; слово_2.1</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Word_3</td>
-                        <td>hard</td>
-                        <td>слово_3.0; слово_3.1</td>
+                        <td>
+                            <%=++i%>
+                        </td>
+                        <td>
+                            <%=w.getWord()%>
+                        </td>
+                        <td>
+                            <i><%=w.getStingComplexity()%>&nbsp;(<%=w.getComplexity()%>%)
+                            </i>
+                        </td>
+                        <td>
+                            <form action="<%=request.getContextPath()%>/add_translation" method="post">
+                                <input type="submit" class="" value="Add">
+                                <input type="hidden" name="word" value="<%=w.getWord()%>">
+                                <input type="text" name="translation" placeholder="Translate">
+                            </form>
+                            <%
+                                for (String translation : w.getTranslations()) {
+                            %>
+                            <form action="/del_translation" method="post">
+                                <%=translation%>
+                                <input type="submit" value="Del">
+                                <input type="hidden" name="word" value="<%=w.getWord()%>">
+                                <input type="hidden" name="translate" value="<%=translation%>">
+                            </form>
+                            <%
+                                }
+                            %>
+                        </td>
                     </tr>
                 </tbody>
+                <%
+                    }
+                %>
             </table>
         </div>
     </div>

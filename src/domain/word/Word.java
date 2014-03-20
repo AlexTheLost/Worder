@@ -1,22 +1,51 @@
 package domain.word;
 
+import java.util.LinkedList;
 import java.util.List;
 
-import dao.word.Lang;
+public class Word {
+    private String word;
+    private float complexity;
+    private List<String> translations;
 
-public interface Word {
-    
-    void setWord(String word);
+    public Word(String word, float complexity) {
+	this.word = word;
+	this.complexity = complexity;
+	translations = new LinkedList<String>();
+    }
 
-    String getWord();
-    
-    void setLang(Lang lang);
-    
-    Lang getLang();
-    
-    void setTransalte(Translation Translation);
+    public void setWord(String w) {
+	word = w;
+    }
 
-    void setTranslations(List<Translation> Translations);
+    public String getWord() {
+	return word;
+    }
 
-    List<Translation> getTranslations();
+    public void setComplexity(float c) {
+	complexity = c;
+    }
+
+    public float getComplexity() {
+	return complexity;
+    }
+
+    public String getStingComplexity() {
+	if (complexity <= 0.33f) {
+	    return "Low";
+	} else if (complexity > 0.33f && complexity < 0.66f) {
+	    return "Medium";
+	} else if (complexity >= 0.66) {
+	    return "Hard";
+	}
+	return "undefined";
+    }
+
+    public void setTranslations(List<String> t) {
+	translations = t;
+    }
+
+    public List<String> getTranslations() {
+	return translations;
+    }
 }
