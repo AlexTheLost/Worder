@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="domain.word.Word, dao.word.WordDAO, java.util.List;"%>
+<%@ page import="domain.word.Word, dao.word.WordDAO, java.util.List, java.net.URLEncoder"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -80,30 +80,41 @@
                             <%=++i%>
                         </td>
                         <td>
-                            <%=w.getWord()%>
+                            <form action="<%=request.getContextPath()%>/delete_word" method="post">
+                                <%=w.getWord()%>
+                                <input type="submit" class="btn btn-default btn-xs" value="Del">
+                                <input type="hidden" name="word" value="<%=w.getWord()%>">
+                            </form>
                         </td>
                         <td>
                             <i><%=w.getStingComplexity()%>&nbsp;(<%=w.getComplexity()%>%)
                             </i>
                         </td>
                         <td>
-                            <form action="<%=request.getContextPath()%>/add_translation" method="post">
-                                <input type="submit" class="" value="Add">
-                                <input type="hidden" name="word" value="<%=w.getWord()%>">
-                                <input type="text" name="translation" placeholder="Translate">
-                            </form>
-                            <%
-                                for (String translation : w.getTranslations()) {
-                            %>
-                            <form action="/del_translation" method="post">
-                                <%=translation%>
-                                <input type="submit" value="Del">
-                                <input type="hidden" name="word" value="<%=w.getWord()%>">
-                                <input type="hidden" name="translate" value="<%=translation%>">
-                            </form>
-                            <%
-                                }
-                            %>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form action="<%=request.getContextPath()%>/add_translation" method="post">
+                                        <input type="submit" class="btn btn-default btn-xs" value="Add">
+                                        <input type="hidden" name="word" value="<%=w.getWord()%>">
+                                        <input type="text" name="translation" placeholder="Translate">
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <%
+                                        for (String translation : w.getTranslations()) {
+                                    %>
+                                    <form action="<%=request.getContextPath()%>/del_translation" method="post"
+                                        class="form-inline">
+                                        <%=translation%>
+                                        <input type="submit" class="btn btn-default btn-xs" value="Del">
+                                        <input type="hidden" name="word" value="<%=w.getWord()%>">
+                                        <input type="hidden" name="translation" value="<%=translation%>">
+                                    </form>
+                                    <%
+                                        }
+                                    %>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

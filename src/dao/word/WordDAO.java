@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import db.connecter.Connector;
 import domain.word.Word;
@@ -114,28 +115,86 @@ public class WordDAO {
 	} catch (SQLException exc) {
 	    // TODO logger
 	    exc.printStackTrace();
+	} finally {
+	    stmt.close();
+	}
+    }
+
+    public void deleteTranslations(String word, String translation)
+	    throws SQLException {
+	String delete = "DELETE FROM words_translations "
+		+ "WHERE word_id = (SELECT id_word FROM words WHERE word = '"
+		+ word
+		+ "') "
+		+ "and translation_id = (SELECT id_translation FROM translations WHERE translation = '"
+		+ translation + "')";
+	Statement stmt = Connector.getConnection().createStatement();
+	try {
+	    stmt.executeUpdate(delete);
+	} catch (SQLException exc) {
+	    // TODO logger
+	    exc.printStackTrace();
 	    throw new SQLException();
 	} finally {
 	    stmt.close();
 	}
     }
 
-    public void update(Word Word) throws SQLException {
+    public void deleteWord(String word) throws SQLException {
+	String delete_fk = "DELETE FROM words_translations WHERE word_id = (SELECT id_word FROM words WHERE word = ?)";
+	String delete_word = "DELETE FROM words WHERE word = ?";
+	PreparedStatement ps1 = null;
+	PreparedStatement ps2 = null;
+	try {
+	    ps1 = Connector.getConnection().prepareStatement(delete_fk);
+	    ps1.setString(1, word);
+	    ps1.executeUpdate();
+	    ps2 = Connector.getConnection().prepareStatement(delete_word);
+	    ps2.setString(1, word);
+	    ps2.executeUpdate();
+	} catch (SQLException exc) {
+	    // TODO logger
+	    exc.printStackTrace();
+	    throw new SQLException();
+	} finally {
+	    ps1.close();
+	    ps2.close();
+	}
     }
 
-    public void delete(Word word) throws SQLException {
+    public List<Word> getRandomWords() throws SQLException {
+	// pass
+	List<Word> words = new LinkedList<>();
+	List<Word> _words = readAll();
+	Random rand = new Random();
+	int index;
+	int n = 5;
+	if (n > _words.size()) {
+	    n = _words.size();
+	}
+	for (int i = 0; i < n; i++) {
+	    index = rand.nextInt(_words.size());
+	    words.add(_words.get(index));
+	    _words.remove(index);
+	}
+	return words;
     }
 
     public static void main(String[] args) {
 	WordDAO wordDAO = new WordDAO();
 	try {
 	    // wordDAO.addTranslation("Test1", "тест1");
-	    wordDAO.create("Test2", 1);
-	    // for (Word _w : wordDAO.readAll()) {
-	    // System.out.println(_w.getWord());
-	    // System.out.println(_w.getComplexity());
-	    // System.out.println(_w.getStingComplexity());
-	    // }
+	    for (Word _w : wordDAO.readAll()) {
+		System.out.print(_w.getWord());
+		System.out.print(_w.getComplexity());
+		System.out.println(_w.getStingComplexity());
+	    }
+
+	    for (Word _w : wordDAO.getRandomWords()) {
+		System.out.print(_w.getWord());
+		System.out.print(_w.getComplexity());
+		System.out.println(_w.getStingComplexity());
+	    }
 	} catch (SQLException e) {
 	}
     }

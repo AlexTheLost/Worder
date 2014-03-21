@@ -2,6 +2,7 @@ package service.word;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,22 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.word.WordDAO;
 
-@WebServlet("/add_word")
-public class AddWord extends HttpServlet {
+@WebServlet("/del_translation")
+public class DeleteTranslation extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public AddWord() {
-	super();
-    }
+    WordDAO wordDAO;
 
+    public DeleteTranslation() {
+	super();
+	wordDAO = new WordDAO();
+    }
     protected void doPost(HttpServletRequest request,
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 	String word = request.getParameter("word");
-	float complexity = getComplexity(request.getParameter("complexity"));
-	WordDAO dao = new WordDAO();
+	String translation = request.getParameter("translation");
+	System.out.println(word);
+	System.out.println(translation);
 	try {
-	    dao.create(word, complexity);
+	    wordDAO.deleteTranslations(word, translation);
 	} catch (SQLException e) {
 	    // TODO error message to user on dictionary.jsp
 	}
@@ -33,16 +37,4 @@ public class AddWord extends HttpServlet {
 		+ "/pages/dictionary.jsp");
     }
 
-    private float getComplexity(String complexity) {
-	switch (complexity) {
-	case "low":
-	    return 0f;
-	case "medium":
-	    return 0.5f;
-	case "hard":
-	    return 1f;
-	default:
-	    return 0.5f;
-	}
-    }
 }

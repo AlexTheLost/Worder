@@ -29,8 +29,7 @@ public class AddTranstation extends HttpServlet {
 	    wordDAO.addTranslation(request.getParameter("word"),
 		    request.getParameter("translation"));
 	} catch (SQLException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    // TODO error message to user on dictionary.jsp
 	}
 	response.sendRedirect(request.getContextPath()
 		+ "/pages/dictionary.jsp");

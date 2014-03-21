@@ -26,3 +26,12 @@ CREATE TABLE words_translations (
 SELECT * FROM words_translations wt INNER JOIN words w ON wt.word_id = w.id_word WHERE word = 'Test1';
 
 SELECT translation FROM translations WHERE id_translation IN (SELECT translation_id FROM words_translations wt INNER JOIN words w ON wt.word_id = w.id_word WHERE word = 'Test1');
+
+-- delete translation-word link
+DELETE FROM words_translations WHERE word_id = (SELECT id_word FROM words WHERE word = 'Test1') and translation_id = (SELECT id_translation FROM translations WHERE translation = 'фыв');
+
+-- delete word
+-- -- translation-word link
+DELETE FROM words_translations WHERE word_id = (SELECT id_word FROM words WHERE word = 'Test1');
+-- -- word
+DELETE FROM words WHERE word = 'Test1';

@@ -10,7 +10,7 @@ public class Connector {
 
     private static Connection connector() {
 	Connection conn = null;
-	String url = "jdbc:mysql://localhost:3306/worder";
+	String url = "jdbc:mysql://localhost:3306/worder?useUnicode=true&characterEncoding=UTF-8";
 	String user = "root";
 	String password = "root";
 	try {
