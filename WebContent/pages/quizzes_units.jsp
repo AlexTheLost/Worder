@@ -27,10 +27,10 @@
             <li>
                 <a href="<%=request.getContextPath()%>/pages/quiz.jsp">Quiz</a>
             </li>
-            <li class="active">
+            <li>
                 <a href="<%=request.getContextPath()%>/pages/dictionary.jsp">Dictionary</a>
             </li>
-            <li>
+            <li class="active">
                 <a href="<%=request.getContextPath()%>/pages/quizzes_units.jsp">Quizzes</a>
             </li>
         </ul>
@@ -39,21 +39,9 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="add">
-                <div class="CRUD">
-                    <!-- ADD -->
-                    <form action="<%=request.getContextPath()%>/add_word" method="post">
-                        <input type="text" name="word" placeholder="Word">
-                        <input type="submit" class="" value="Add">
-                        <br />
-                        Complexity:&nbsp;
-                        <input type="radio" name="complexity" value="low">
-                        Low&nbsp;
-                        <input type="radio" name="complexity" value="medium">
-                        Medium&nbsp;
-                        <input type="radio" name="complexity" value="hard" checked>
-                        Hard&nbsp;
-
-                    </form>
+                <div class="CRUD">                  
+                    <!-- Create new Quiz -->
+                    <a href="<%=request.getContextPath()%>/new_quiz">Create new Quiz</a>
                 </div>
             </div>
         </div>
@@ -62,15 +50,15 @@
             WordDAO wordDAO = new WordDAO();
             List<Word> words = wordDAO.readAll();
         %>
+        
         <div class="panel panel-default">
-            <div class="panel-heading">Dictionary</div>
+            <div class="panel-heading">Quiz</div>
             <table class="table">
                 <thead>
                     <tr>
                         <th>№</th>
-                        <th>EN Word</th>
-                        <th>Complexity</th>
-                        <th>Ru Translate</th>
+                        <th>Title</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <%

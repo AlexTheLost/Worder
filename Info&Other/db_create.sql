@@ -35,3 +35,9 @@ DELETE FROM words_translations WHERE word_id = (SELECT id_word FROM words WHERE 
 DELETE FROM words_translations WHERE word_id = (SELECT id_word FROM words WHERE word = 'Test1');
 -- -- word
 DELETE FROM words WHERE word = 'Test1';
+
+-- TABLE: quizzes_units
+CREATE TABLE quizzes_units ( id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY, unit_number INT(5) NOT NULL, id_word INT(5) NOT NULL );
+
+-- TABLE: quizzes
+CREATE TABLE quizzes ( id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(20) NOT NULL UNIQUE, description VARCHAR(200) );

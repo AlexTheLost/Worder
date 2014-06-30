@@ -24,6 +24,9 @@
             <li>
                 <a href="<%=request.getContextPath()%>/pages/dictionary.jsp">Dictionary</a>
             </li>
+            <li>
+                <a href="<%=request.getContextPath()%>/pages/quizzes_units.jsp">Quizzes</a>
+            </li>
         </ul>
 
     </div>
