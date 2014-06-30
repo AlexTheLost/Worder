@@ -69,7 +69,6 @@
                     <tr>
                         <th>№</th>
                         <th>EN Word</th>
-                        <th>Complexity</th>
                         <th>Ru Translate</th>
                     </tr>
                 </thead>
@@ -88,10 +87,6 @@
                                 <input type="submit" class="btn btn-default btn-xs" value="Del">
                                 <input type="hidden" name="word" value="<%=w.getWord()%>">
                             </form>
-                        </td>
-                        <td>
-                            <i><%=w.getStingComplexity()%>&nbsp;(<%=w.getComplexity()%>%)
-                            </i>
                         </td>
                         <td>
                             <div class="row">

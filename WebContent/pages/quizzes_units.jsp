@@ -41,7 +41,10 @@
             <div class="tab-pane active" id="add">
                 <div class="CRUD">                  
                     <!-- Create new Quiz -->
-                    <a href="<%=request.getContextPath()%>/new_quiz">Create new Quiz</a>
+                    <form action="<%=request.getContextPath()%>/CreateNewQuiz" method="post">
+                        <input type="text" name="title" placeholder="Quiz Title">
+                        <input type="submit" class="" value="Add">
+                    </form>
                 </div>
             </div>
         </div>

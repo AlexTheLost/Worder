@@ -22,10 +22,9 @@ public class AddWord extends HttpServlet {
 	    HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 	String word = request.getParameter("word");
-	float complexity = getComplexity(request.getParameter("complexity"));
 	WordDAO dao = new WordDAO();
 	try {
-	    dao.create(word, complexity);
+	    dao.create(word, 0);
 	} catch (SQLException e) {
 	    // TODO error message to user on dictionary.jsp
 	}
@@ -33,16 +32,4 @@ public class AddWord extends HttpServlet {
 		+ "/pages/dictionary.jsp");
     }
 
-    private float getComplexity(String complexity) {
-	switch (complexity) {
-	case "low":
-	    return 0f;
-	case "medium":
-	    return 0.5f;
-	case "hard":
-	    return 1f;
-	default:
-	    return 0.5f;
-	}
-    }
 }
